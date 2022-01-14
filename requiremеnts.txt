@@ -1,1 +1,2 @@
-Требуется библиотека requests
+Library requests needed
+Library json needed
