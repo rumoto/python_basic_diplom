@@ -1,2 +1,4 @@
 Library requests needed
 Library json needed
+Library time needed
+Library tqdm needed
