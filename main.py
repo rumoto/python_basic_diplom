@@ -1,5 +1,7 @@
 import requests
 import json
+import time
+from tqdm import tqdm
 
 with open('token.txt', 'r') as file_object:
     token = file_object.read().strip()
@@ -64,7 +66,8 @@ class YaUploader:
         headers = {'Content-Type': 'application/json', 'Authorization': F'OAuth {self.token}'}
         uploaded_photos = []
         info_for_json = []
-        for photo in photo_list:
+        for photo in tqdm(photo_list):
+            time.sleep(0.5)
             current_photo = {}
             if photo['likes'] not in uploaded_photos:
                 file_name = f'{photo["likes"]}.jpg'
@@ -79,8 +82,8 @@ class YaUploader:
             info_for_json.append(current_photo)
             response_upload = requests.post(upload_url, headers=headers, params=params)
             response_upload.raise_for_status()
-            if response_upload.status_code == 202:
-                print(f"Загружена фотография: {current_photo['file_name']}")
+            #if response_upload.status_code == 202:
+            #    print(f"Загружена фотография: {current_photo['file_name']}")
         print('Загрузка завершена')
         return info_for_json
 
